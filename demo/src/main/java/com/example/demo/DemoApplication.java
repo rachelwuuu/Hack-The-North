@@ -16,3 +16,6 @@ public class DemoApplication {
 	}
 
 }
+
+// Ctrl + C to terminate
+// Stop-Process -Id (Get-NetTCPConnection -LocalPort 9180).OwningProcess -Force
