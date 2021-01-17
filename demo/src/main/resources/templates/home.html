@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Squat Squad|Home</title>
+        <!-- <link href="./static/css/home-style.css" rel="stylesheet" type="text/css" /> -->
+        <link th:href="@{/css/home-style.css}" rel="stylesheet" />
+        <title>Squat Squad|Home </title>
     </head>
-    <body>
+    
+    <body class = "dark">
         <h1>Welcome to Squat Squad</h1>
-        <h2>Start accessing your squats!</h2>
-        <!-- <form th:action="@{/login}" th:object="${user}" method=post>
-            
-            
-        </form> -->
+        <h2>Do your squats safely and effectively -- Get your squats assessed via your webcam!</h2>
+        
+        <div id = "Camera"> 
+            <h3>For the best results, keep one meter between you and your device, while facing sideways from the camera. </h3>
+        </div>
+        <div><p>This is where the webcam goes</p></div>
         <button>Start</button>
+        <div id = "Squat"> 
+            <!--REFERENCE: https://www.realsimple.com/health/fitness-exercise/workouts/squat-form-->
+            <h3>Proper Squat Form:</h3>
+            <ol>
+                <li>Stand with feet a little wider than hip width with toes facing forwards.</li>
+                <li>Drive your hips back, bend your knees and ankles, and press your knees slightly outwards.</li>
+                <li>Sit into a squat position while still keeping your heels and toes on the ground, chest up and shoulders back.</li>
+                <li>Aim to reach parallel -- knees are bent to a 90-degree angle, and keep them behind your toes.</li>
+                <li>Press into your heels and straighten legs to return to a standing upright position.</li>
+              </ol>
+        </div>
+        
+        
         </body>
 </html>
