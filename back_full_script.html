@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2020a"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S0 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre;"><span>trainedNet = importONNXNetwork(</span><span style="color: rgb(160, 32, 240);">"trainedNetwork_1.onnx"</span><span>, </span><span style="color: rgb(160, 32, 240);">'OutputLayerType'</span><span>, </span><span style="color: rgb(160, 32, 240);">"classification"</span><span>,</span><span style="color: rgb(160, 32, 240);">'Classes'</span><span>,[</span><span style="color: rgb(160, 32, 240);">"correct" "correct"</span><span>]); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Create the webcam object.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>cam = webcam();</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Capture one frame to get its size.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>videoFrame = snapshot(cam);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>frameSize = size(videoFrame);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Create the video player object.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>videoPlayer = vision.VideoPlayer(</span><span style="color: rgb(160, 32, 240);">'Position'</span><span>, [100 100 [frameSize(2), frameSize(1)]+30]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>runLoop = true;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>numPts = 0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>frameCount = 0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">while </span><span>runLoop</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(60, 118, 61);">% Get the next frame.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    videoFrame = snapshot(cam);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    videoFrameGray = rgb2gray(videoFrame);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(60, 118, 61);">% Display the annotated video frame using the video player object.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    I = videoFrame;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    I = imresize(I, [227 227]); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    [YPred,probs] = classify(trainedNet,I);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    label = YPred;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    title = string(label);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    RGB = insertText(videoFrame, [10 10], title, </span><span style="color: rgb(160, 32, 240);">"FontSize"</span><span>, 20); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    videoFrame = RGB; </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    step(videoPlayer, videoFrame);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(60, 118, 61);">% Check whether the video player window has been closed.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    runLoop = isOpen(videoPlayer);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(0, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(60, 118, 61);">% Clean up.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>clear </span><span style="color: rgb(160, 32, 240);">cam</span><span>;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>release(videoPlayer);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S2'></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+trainedNet = importONNXNetwork("trainedNetwork_1.onnx", 'OutputLayerType', "classification",'Classes',["correct" "correct"]); 
+
+% Create the webcam object.
+cam = webcam();
+
+% Capture one frame to get its size.
+videoFrame = snapshot(cam);
+frameSize = size(videoFrame);
+
+% Create the video player object.
+videoPlayer = vision.VideoPlayer('Position', [100 100 [frameSize(2), frameSize(1)]+30]);
+runLoop = true;
+numPts = 0;
+frameCount = 0;
+
+while runLoop
+
+    % Get the next frame.
+    videoFrame = snapshot(cam);
+    videoFrameGray = rgb2gray(videoFrame);
+
+    % Display the annotated video frame using the video player object.
+    I = videoFrame;
+    I = imresize(I, [227 227]); 
+
+    [YPred,probs] = classify(trainedNet,I);
+    label = YPred;
+    title = string(label);
+    RGB = insertText(videoFrame, [10 10], title, "FontSize", 20); 
+    videoFrame = RGB; 
+    step(videoPlayer, videoFrame);
+
+    % Check whether the video player window has been closed.
+    runLoop = isOpen(videoPlayer);
+end
+
+% Clean up.
+clear cam;
+release(videoPlayer);
+##### SOURCE END #####
+--></body></html>
